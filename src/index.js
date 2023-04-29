@@ -1,16 +1,17 @@
-
 class FMP {
   /**
    * get first-meaningful-paint
    */
   static getFmp(observeTime = 3000) {
-    if (!Promise
-      || !window.performance
-      || !window.performance.timing
-      || !window.requestAnimationFrame
-      || !window.MutationObserver) {
-      console.log('fmp can not be retrieved');
-      Promise.reject(new Error('fmp can not be retrieved'));
+    if (
+      !Promise ||
+      !window.performance ||
+      !window.performance.timing ||
+      !window.requestAnimationFrame ||
+      !window.MutationObserver
+    ) {
+      console.log("fmp can not be retrieved");
+      Promise.reject(new Error("fmp can not be retrieved"));
     }
 
     const promise = new Promise((resolve) => {
@@ -21,9 +22,17 @@ class FMP {
           const length = dom.children ? dom.children.length : 0;
           let sum = 0;
           const tagName = dom.tagName;
-          if (tagName !== 'SCRIPT' && tagName !== 'STYLE' && tagName !== 'META' && tagName !== 'HEAD') {
-            if (dom.getBoundingClientRect && dom.getBoundingClientRect().top < innerHeight) {
-              sum += (level * length);
+          if (
+            tagName !== "SCRIPT" &&
+            tagName !== "STYLE" &&
+            tagName !== "META" &&
+            tagName !== "HEAD"
+          ) {
+            if (
+              dom.getBoundingClientRect &&
+              dom.getBoundingClientRect().top < innerHeight
+            ) {
+              sum += level * length;
             }
             if (length > 0) {
               const children = dom.children;
